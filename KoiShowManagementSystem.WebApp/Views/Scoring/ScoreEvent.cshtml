@@ -1,0 +1,99 @@
+﻿@model IEnumerable<KoiShowManagementSystem.ViewModels.ScoreEventViewModel>
+
+@{
+    ViewData["Title"] = "Chấm Điểm Cho Sự Kiện";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Cá Koi</th>
+                <th>Hình Ảnh </th>
+                <th>Hạng Mục</th>
+                <th>Điểm Dáng (50%)</th>
+                <th>Điểm Màu Sắc (30%)</th>
+                <th>Điểm Hoa Văn (20%)</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var koi in Model)
+            {
+                <tr>
+                    <td>@koi.KoiName</td>
+                    <td><img src="@koi.PhotoPath" alt="Ảnh Cá Koi" width="100" height="100" class="img-thumbnail" /></td>
+                    <td>@koi.Category</td>
+
+                    @if (koi.CurrentScore == 0) // Nếu chưa được chấm điểm
+                    {
+                        <td>
+                            <input type="number" id="shapeScore_@koi.ParticipationId" step="0.1" min="0" max="10" required class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" id="colorScore_@koi.ParticipationId" step="0.1" min="0" max="10" required class="form-control" />
+                        </td>
+                        <td>
+                            <input type="number" id="patternScore_@koi.ParticipationId" step="0.1" min="0" max="10" required class="form-control" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="submitScore(@koi.ParticipationId)">Lưu Điểm</button>
+                        </td>
+                    }
+                    else // Nếu đã được chấm điểm
+                    {
+                        <td colspan="3" class="text-center">Điểm đã được chấm</td>
+                        <td></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có cá Koi nào trong sự kiện này để chấm điểm.</p>
+}
+
+@section Scripts {
+    <script>
+        function submitScore(participationId) {
+            const shapeScore = document.getElementById(`shapeScore_${participationId}`).value;
+            const colorScore = document.getElementById(`colorScore_${participationId}`).value;
+            const patternScore = document.getElementById(`patternScore_${participationId}`).value;
+
+            if (!shapeScore || !colorScore || !patternScore) {
+                alert("Vui lòng nhập đầy đủ điểm.");
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("SubmitScore", "Scoring")',
+                type: 'POST',
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                data: {
+                    eventKoiParticipationId: participationId,
+                    shapeScore: parseFloat(shapeScore),
+                    colorScore: parseFloat(colorScore),
+                    patternScore: parseFloat(patternScore)
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.reload();
+                    } else {
+                        alert("Lỗi: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Đã xảy ra lỗi khi lưu điểm: " + error);
+                }
+            });
+        }
+    </script>
+}

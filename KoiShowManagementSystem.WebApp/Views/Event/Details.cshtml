@@ -1,0 +1,70 @@
+﻿@model EventDetailsViewModel
+@{
+    ViewData["Title"] = "Chi Tiết Sự Kiện";
+}
+<h2>Chi tiết Sự kiện</h2>
+
+<div>
+    <h4>@Model.EventDetail.EventName</h4>
+    <p>Ngày Bắt đầu: @Model.EventDetail.StartDate.ToString("dd-MM-yyyy")</p>
+    <p>Ngày Kết thúc: @Model.EventDetail.EndDate.ToString("dd-MM-yyyy")</p>
+    <p>Địa điểm: @Model.EventDetail.Location</p>
+    <p>Trạng thái: @Model.EventDetail.Status</p> <!-- Hiển thị trạng thái -->
+    <p>Mô tả: @Model.EventDetail.Description</p>
+</div>
+
+<h3>Bảng Xếp Hạng</h3>
+@if (Model.RankedKoiList != null && Model.RankedKoiList.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Cá Koi</th>
+                <th>Hạng Mục</th>
+                <th>Điểm</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var koi in Model.RankedKoiList)
+            {
+                <tr>
+                    <td>@koi.KoiName</td>
+                    <td>@koi.Category</td>
+                    <td>@koi.Score</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có thí sinh nào tham gia hạng mục được yêu cầu.</p>
+}
+
+@if (Model.IsRegistered)
+{
+    <p><strong>Bạn đã đăng ký tham gia sự kiện này</strong></p>
+}
+else if ((User.IsInRole("USER") || User.IsInRole("ADMIN")) && Model.CanRegister)
+{
+    <!-- Chỉ cho phép User và Admin đăng ký -->
+    <form asp-controller="Event" asp-action="Register" method="post">
+        <input type="hidden" name="eventId" value="@Model.EventDetail.Id" />
+        <label for="koiId">Chọn cá Koi để đăng ký:</label>
+        <select id="koiId" name="koiId" class="form-control" required>
+            <option value="">-- Chọn --</option>
+            @foreach (var koi in ViewBag.UserKoiList as List<Koi>)
+            {
+                <option value="@koi.Id">@koi.Name</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Đăng ký</button>
+    </form>
+}
+else
+{
+    <!-- Thông báo cho Referee, User hoặc Admin nếu sự kiện không đủ điều kiện -->
+    <p><strong>Sự kiện đã kết thúc hoặc bạn không đủ điều kiện đăng ký</strong></p>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Trở về</a>

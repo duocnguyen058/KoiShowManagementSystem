@@ -1,0 +1,28 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Koi
+
+@{
+    ViewData["Title"] = "Xóa Cá Koi";
+}
+
+<h2>Xóa Cá Koi</h2>
+
+<h3>Bạn có chắc muốn xóa cá Koi này không?</h3>
+
+<div>
+    <h4>@Model.Name</h4>
+    <img src="@Model.PhotoPath" alt="@Model.Name" width="200" />
+    <p><strong>Giống: </strong>@Model.Variety</p>
+    <p><strong>Kích thước: </strong>@Model.Size</p>
+    <p><strong>Tuổi: </strong>@Model.Age</p>
+    <p><strong>Trạng thái Đăng ký: </strong>@Model.RegistrationStatus</p>
+</div>
+
+<hr />
+
+<div>
+    <form method="post" action="@Url.Action("DeleteConfirmed", "KoiManager", new { id = Model.Id })">
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<KoiShowManagementSystem.Repositories.Entity.Users>
+
+@{
+    ViewData["Title"] = "Quản Lý Người Dùng";
+}
+
+<h1>Danh Sách Người Dùng</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Người Dùng</th>
+            <th>Email</th>
+            <th>Vai Trò</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Username</td> <!-- Thay "UserName" thành "Username" -->
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <!-- Thêm các hành động như xem, chỉnh sửa, hoặc xóa người dùng -->
+                    <a href="@Url.Action("Edit", "User", new { id = user.Id })">Chỉnh sửa</a> |
+                    <a href="@Url.Action("Delete", "User", new { id = user.Id })">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Koi
+@{
+    ViewData["Title"] = "Thêm Cá Koi Mới";
+}
+<h2>Thêm Cá Koi Mới</h2>
+
+<form asp-action="Create" method="post" asp-antiforgery="true" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Name">Tên Cá Koi</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Variety">Giống</label>
+        <input asp-for="Variety" class="form-control" />
+        <span asp-validation-for="Variety" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Size">Kích Thước (cm)</label>
+        <input asp-for="Size" type="number" step="0.1" class="form-control" />
+        <span asp-validation-for="Size" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Age">Tuổi</label>
+        <input asp-for="Age" type="number" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="RegistrationStatus">Trạng Thái</label>
+        <select asp-for="RegistrationStatus" class="form-control">
+            <option value="Hoạt động">Hoạt động</option>
+            <option value="Tạm ngừng">Tạm ngừng</option>
+            <option value="Ngừng hoạt động">Ngừng hoạt động</option>
+        </select>
+        <span asp-validation-for="RegistrationStatus" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Photo">Ảnh Cá Koi</label>
+        <input type="file" name="photo" class="form-control-file" />
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm Cá Koi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

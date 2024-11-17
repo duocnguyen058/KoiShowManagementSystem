@@ -1,0 +1,14 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Users
+
+@{
+    ViewData["Title"] = "Xóa người dùng";
+}
+
+<h1>Xóa người dùng</h1>
+
+<p>Bạn có chắc chắn muốn xóa người dùng <strong>@Model.Username</strong>?</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "User")" class="btn btn-secondary">Hủy bỏ</a>
+</form>

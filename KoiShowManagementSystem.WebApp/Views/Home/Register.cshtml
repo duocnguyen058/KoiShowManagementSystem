@@ -1,0 +1,70 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Users
+
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Đăng Ký</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form asp-action="Register" method="post">
+                    <!-- Display error messages -->
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <p>@error.ErrorMessage</p>
+                            }
+                        </div>
+                    }
+
+                    <div class="form-group mb-3">
+                        <label for="username" class="form-label">Tên tài khoản</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên tài khoản" required />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email của bạn" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="showPassword" onclick="togglePasswordVisibility()">
+                        <label class="form-check-label" for="showPassword">Hiển thị mật khẩu</label>
+                    </div>
+
+                    <input type="hidden" asp-for="Role" value="USER" />
+
+                    <div class="form-group mb-4 text-center">
+                        <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
+                    </div>
+                    <div class="text-center">
+                        <p>Đã có tài khoản? <a href="@Url.Action("Login", "Home")" class="text-primary">Đăng nhập ngay</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const checkbox = document.getElementById('showPassword');
+            passwordField.type = checkbox.checked ? 'text' : 'password';
+        }
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<KoiShowManagementSystem.Repositories.Entity.Events>
+@{
+    ViewData["Title"] = "Danh Sách Sự Kiện";
+}
+<h2>Danh sách Sự kiện</h2>
+<form asp-action="Search" method="get">
+    <input type="text" name="keyword" placeholder="Tìm kiếm sự kiện..." />
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+@if (User.IsInRole("ADMIN"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">Tạo Sự kiện Mới</a>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên Sự kiện</th>
+            <th>Ngày Bắt đầu</th>
+            <th>Ngày Kết thúc</th>
+            <th>Địa điểm</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EventName</td>
+                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.Location</td>
+                <td>@item.Status</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Chi tiết</a>
+                    @if (User.IsInRole("ADMIN"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Sửa</a>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.Id" data-name="@item.EventName">Xóa</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xóa Sự kiện</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa sự kiện <strong id="modalEventName"></strong> không?
+            </div>
+            <div class="modal-footer">
+                <form method="post" asp-action="Delete" asp-route-id="" id="deleteForm">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Nút kích hoạt modal
+            var eventId = button.getAttribute('data-id'); // Lấy ID sự kiện
+            var eventName = button.getAttribute('data-name'); // Lấy tên sự kiện
+
+            // Cập nhật modal
+            document.getElementById('modalEventName').textContent = eventName;
+            document.getElementById('deleteForm').setAttribute('action', '/Event/Delete/' + eventId);
+        });
+    </script>
+}
+@if (TempData["Message"] != null)
+{
+    var messageType = TempData["MessageType"]?.ToString();
+    var alertClass = messageType == "success" ? "alert-success" : "alert-danger";
+
+    <div class="alert @alertClass">
+        @TempData["Message"]
+    </div>
+}

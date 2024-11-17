@@ -1,0 +1,60 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Koi
+@{
+    ViewData["Title"] = "Sửa Thông Tin Cá Koi";
+}
+<h2>Sửa Thông Tin Cá Koi</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label for="Name">Tên Cá Koi</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Variety">Giống</label>
+        <input asp-for="Variety" class="form-control" />
+        <span asp-validation-for="Variety" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Size">Kích Thước (cm)</label>
+        <input asp-for="Size" type="number" step="0.1" class="form-control" />
+        <span asp-validation-for="Size" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Age">Tuổi</label>
+        <input asp-for="Age" type="number" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="RegistrationStatus">Trạng Thái</label>
+        <select asp-for="RegistrationStatus" class="form-control" asp-items="ViewBag.RegistrationStatuses"></select>
+        <span asp-validation-for="RegistrationStatus" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Photo">Ảnh Cá Koi</label>
+        <!-- Hiển thị ảnh hiện tại nếu có -->
+        @if (!string.IsNullOrEmpty(Model.PhotoPath))
+        {
+            <div>
+                <img src="@Model.PhotoPath" alt="Current Photo" style="max-width: 200px; margin-bottom: 10px;" />
+            </div>
+        }
+
+        <!-- Cho phép tải lên ảnh mới -->
+        <input type="file" name="photo" class="form-control-file" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

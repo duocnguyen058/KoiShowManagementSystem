@@ -1,0 +1,56 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Koi
+@{
+    ViewData["Title"] = "Thông Tin Chi Tiết";
+}
+<h2 class="text-center mb-4">Thông Tin Chi Tiết Cá Koi</h2>
+
+<div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-header text-center bg-primary text-white">
+        <h4>@Model.Name</h4>
+    </div>
+    <div class="card-body">
+        <div class="text-center mb-3">
+            @if (!string.IsNullOrEmpty(Model.PhotoPath))
+            {
+                <img src="@Model.PhotoPath" alt="Ảnh Cá Koi" class="img-thumbnail" style="max-width: 100%; height: auto;" />
+            }
+            else
+            {
+                <p class="text-muted">Không có ảnh</p>
+            }
+        </div>
+        <dl class="row">
+            <dt class="col-sm-4">Giống</dt>
+            <dd class="col-sm-8">@Model.Variety</dd>
+
+            <dt class="col-sm-4">Kích Thước (cm)</dt>
+            <dd class="col-sm-8">@Model.Size</dd>
+
+            <dt class="col-sm-4">Tuổi</dt>
+            <dd class="col-sm-8">@Model.Age</dd>
+
+            <dt class="col-sm-4">Trạng Thái</dt>
+            <dd class="col-sm-8">
+                @switch (Model.RegistrationStatus)
+                {
+                    case "Hoạt động":
+                        <span class="badge bg-success">Hoạt động</span>
+                        break;
+                    case "Tạm ngừng":
+                        <span class="badge bg-warning text-dark">Tạm ngừng</span>
+                        break;
+                    case "Ngừng hoạt động":
+                        <span class="badge bg-danger">Ngừng hoạt động</span>
+                        break;
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer text-center">
+        <a asp-action="Index" class="btn btn-secondary">Quay Lại Danh Sách</a>
+        @if (User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.UsersId.ToString())
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Sửa</a>
+        }
+    </div>
+</div>

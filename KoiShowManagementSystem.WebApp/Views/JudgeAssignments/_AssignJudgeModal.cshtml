@@ -1,0 +1,38 @@
+﻿@model KoiShowManagementSystem.ViewModels.AssignJudgeViewModel
+
+<div id="eventAssignmentForm">
+    <form asp-controller="JudgeAssignments" asp-action="AssignJudge" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="UserId" value="@Model.UserId" />
+
+        <div class="form-group">
+            <label>Chọn sự kiện để phân công/hủy phân công:</label>
+            @if (Model.Events != null && Model.Events.Any())
+            {
+                @foreach (var eventItem in Model.Events)
+                {
+                    var isAssigned = Model.AssignedEventIds?.Contains(eventItem.Id) ?? false;
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="SelectedEventIds"
+                               value="@eventItem.Id"
+                        @(isAssigned ? "checked" : "") />
+                        <label class="form-check-label">
+                            @eventItem.EventName (Trạng thái: @eventItem.Status)
+                            @(isAssigned ? "<span class='text-success'>(Đã được phân công)</span>" : "")
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-danger">Không có sự kiện nào sẵn sàng để phân công.</p>
+            }
+        </div>
+
+        <!-- Hai nút phân công và hủy phân công -->
+        <button type="submit" name="action" value="Assign" class="btn btn-primary">Lưu phân công</button>
+        <button type="submit" name="action" value="Unassign" class="btn btn-danger">Hủy phân công</button>
+    </form>
+</div>

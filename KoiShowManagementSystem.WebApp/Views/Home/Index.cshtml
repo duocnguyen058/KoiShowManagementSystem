@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Trang Chủ";
+}
+<style>
+    /* Nền toàn trang */
+    body {
+        background-image: url('/images/koi-background.jpg');
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        color: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Hiệu ứng gradient cho tiêu đề */
+    .text-center h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, #FFD700, #FFB300);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+        margin-bottom: 10px;
+    }
+
+    .text-center p.lead {
+        font-size: 1.8rem;
+        color: #FFFAF0;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Căn giữa tiêu đề với hiệu ứng nền */
+    .highlight-background {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 10px;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        margin: 30px auto;
+        max-width: 90%;
+    }
+
+    /* Nội dung các phần */
+    .section-background {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+        padding: 40px;
+        border-radius: 15px;
+        margin: 40px auto;
+        max-width: 80%;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    }
+
+        .section-background h2 {
+            font-size: 2.5rem;
+            color: #FFBA49;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #FFBA49;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-background p {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            line-height: 1.8;
+        }
+
+        .section-background ul {
+            margin: 20px 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+            .section-background ul li {
+                margin-bottom: 10px;
+                font-size: 1.1rem;
+                color: #FFE4A1;
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+                /* Hiệu ứng di chuột vào nội quy */
+                .section-background ul li:hover {
+                    color: #FFBA49;
+                    transform: translateX(10px);
+                }
+</style>
+
+<!-- Phần tiêu đề -->
+<div class="text-center">
+    <div class="highlight-background">
+        <h1>Cuộc Thi Triển Lãm Cá Koi Toàn Quốc</h1>
+        <p class="lead">Sự Kiện Nổi Bật Dành Cho Các Nhà Sưu Tập Cá Koi Chuyên Nghiệp</p>
+    </div>
+</div>
+
+<!-- Phần giới thiệu -->
+<section id="gioi-thieu" class="section-background">
+    <h2>Chào Mừng Đến Với Cuộc Thi Triển Lãm Cá Koi 2024</h2>
+    <p>
+        Triển lãm Cá Koi 2024 là sự kiện nổi bật nhất trong năm, dành riêng cho những cá nhân đam mê và sưu tầm cá Koi xuất sắc. Đây là dịp để bạn chiêm ngưỡng những chú cá Koi có giá trị cao, đồng thời khám phá các xu hướng mới trong nuôi cá Koi.
+    </p>
+    <p>
+        Sự kiện năm nay sẽ có sự tham gia của những chuyên gia hàng đầu trong ngành, các nhà sưu tập cá Koi nổi tiếng, và đặc biệt là những chú cá Koi sẽ cạnh tranh cho những giải thưởng giá trị. Hãy đến và trải nghiệm một không gian đẳng cấp, nơi giao lưu và chia sẻ kiến thức về cá Koi.
+    </p>
+    <p><strong>Hình thức tham gia:</strong></p>
+    <ul>
+        <li><strong>Tham gia trực tiếp (Off-line):</strong> Bạn có thể đến trực tiếp địa điểm tổ chức triển lãm và tham gia với tư cách là người tham gia hoặc khách tham quan.</li>
+        <li><strong>Tham gia trực tuyến (Online):</strong> Đối với những ai không thể tham gia trực tiếp, chúng tôi cung cấp nền tảng tham gia trực tuyến để bạn có thể theo dõi và tham gia các hoạt động của sự kiện.</li>
+    </ul>
+</section>
+
+<!-- Phần nội quy -->
+<section id="noi-quy" class="section-background">
+    <h2>Nội Quy Cuộc Thi</h2>
+    <ul>
+        <li><strong>Điều 1:</strong> Thí sinh phải đăng ký tham gia trước ít nhất 1 tuần so với ngày diễn ra sự kiện. Đăng ký trễ sẽ không được chấp nhận.</li>
+        <li><strong>Điều 2:</strong> Mỗi thí sinh chỉ được đăng ký một cá Koi cho mỗi sự kiện. Cá Koi cần đạt chuẩn về sức khỏe và ngoại hình, không có dấu hiệu bệnh tật.</li>
+        <li><strong>Điều 3:</strong> Các cá Koi tham gia phải tuân thủ các quy chuẩn về màu sắc, kích thước và độ tuổi, đảm bảo sức khỏe và không bị bệnh tật.</li>
+        <li><strong>Điều 4:</strong> Thí sinh phải đảm bảo vệ sinh cá Koi và các vật dụng liên quan trong suốt quá trình tham gia. Mọi vi phạm sẽ bị xử lý nghiêm túc, bao gồm loại bỏ khỏi cuộc thi.</li>
+        <li><strong>Điều 5:</strong> Ban giám khảo có quyền loại bỏ bất kỳ thí sinh nào không tuân thủ nội quy cuộc thi.</li>
+        <li><strong>Điều 6:</strong> Quyết định của ban giám khảo là cuối cùng và không có sự thay đổi hoặc khiếu nại sau khi kết quả được công bố.</li>
+        <li><strong>Điều 7:</strong> Các thí sinh tham gia trực tuyến phải tuân thủ các quy định về gửi hình ảnh và video chất lượng cao của cá Koi để đảm bảo tính công bằng trong chấm điểm.</li>
+    </ul>
+</section>

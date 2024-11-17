@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Đăng Nhập</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form asp-action="Login" method="post">
+                    <div class="form-group mb-3">
+                        <label for="username" class="form-label">Tên đăng nhập</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="showPassword" onclick="togglePasswordVisibility()">
+                        <label class="form-check-label" for="showPassword">Hiển thị mật khẩu</label>
+                    </div>
+                    <div class="form-group mb-4 text-center">
+                        <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+                    </div>
+                    <div class="text-center">
+                        <p>Chưa có tài khoản? <a href="@Url.Action("Register", "Home")" class="text-primary">Đăng ký ngay</a></p>
+                    </div>
+                </form>
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const checkbox = document.getElementById('showPassword');
+            passwordField.type = checkbox.checked ? 'text' : 'password';
+        }
+    </script>
+}

@@ -1,0 +1,64 @@
+﻿@model List<KoiShowManagementSystem.ViewModels.RefereeViewModel>
+@{
+    ViewData["Title"] = "Danh Sách Giám Khảo";
+}
+<h2>Danh sách Giám khảo</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Giám khảo</th>
+            <th>Số sự kiện đã được phân công</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var referee in Model)
+        {
+            <tr>
+                <td>@referee.UserName</td>
+                <td>@referee.AssignedEventCount</td>
+                <td>
+                    <button class="btn btn-primary" onclick="loadAssignModal(@referee.UserId, '@referee.UserName')">
+                        Phân công
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="assignJudgeModal" tabindex="-1" aria-labelledby="assignJudgeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignJudgeModalLabel">Phân công giám khảo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <p>Đang tải dữ liệu...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function loadAssignModal(userId, userName) {
+            $('#assignJudgeModalLabel').text(`Phân công cho giám khảo: ${userName}`);
+            $.get('/JudgeAssignments/AssignJudge', { userId: userId })
+                .done(function (data) {
+                    $('#modalContent').html(data);
+                    var modal = new bootstrap.Modal(document.getElementById('assignJudgeModal'));
+                    modal.show();
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error loading modal: " + textStatus + " - " + errorThrown);
+                    $('#modalContent').html('<p class="text-danger">Không thể tải dữ liệu. Đã xảy ra lỗi trên server.</p>');
+                });
+        }
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿@model KoiShowManagementSystem.Repositories.Entity.Users
+@{
+    ViewData["Title"] = "Chỉnh sửa người dùng";
+}
+
+<h1>Chỉnh sửa người dùng</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Username">Tên người dùng</label>
+        <input type="text" class="form-control" id="Username" name="Username" value="@Model.Username" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Role">Vai trò</label>
+        @Html.DropDownListFor(model => model.Role,
+                 new List<SelectListItem>
+        {
+        new SelectListItem { Text = "ADMIN", Value = "ADMIN", Selected = Model.Role == "ADMIN" },
+        new SelectListItem { Text = "REFEREE", Value = "REFEREE", Selected = Model.Role == "REFEREE" },
+        new SelectListItem { Text = "USER", Value = "USER", Selected = Model.Role == "USER" },
+        },
+                 new { @class = "form-control", id = "Role" })
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Mật khẩu mới (nếu thay đổi)</label>
+        <input type="password" class="form-control" id="Password" name="Password" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>

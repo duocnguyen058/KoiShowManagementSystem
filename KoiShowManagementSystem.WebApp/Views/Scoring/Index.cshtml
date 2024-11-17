@@ -1,0 +1,41 @@
+﻿@model IEnumerable<KoiShowManagementSystem.Repositories.Entity.JudgeAssignments>
+
+@{
+    ViewData["Title"] = "Danh sách Sự Kiện Cần Chấm Điểm";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Html.Partial("_Notification")
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Sự Kiện</th>
+                <th>Ngày Bắt Đầu</th>
+                <th>Ngày Kết Thúc</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in Model)
+            {
+                <tr>
+                    <td>@assignment.Events.EventName</td>
+                    <td>@assignment.Events.StartDate.ToShortDateString()</td>
+                    <td>@assignment.Events.EndDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-action="ScoreEvent" asp-route-eventId="@assignment.EventsId" class="btn btn-primary">Chấm Điểm</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Bạn chưa được phân công chấm điểm cho sự kiện nào.</p>
+}
+@Html.Partial("_Notification")

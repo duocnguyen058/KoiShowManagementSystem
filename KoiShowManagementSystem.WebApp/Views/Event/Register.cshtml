@@ -1,0 +1,16 @@
+﻿@model List<Koi>
+@{
+    var eventId = ViewBag.EventId;
+}
+
+<h2>Chọn Cá Koi để Đăng ký</h2>
+<form asp-action="Register" method="post">
+    <input type="hidden" name="eventId" value="@eventId" />
+    <select name="koiId" required>
+        @foreach (var koi in Model)
+        {
+            <option value="@koi.Id">@koi.Name</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-success">Đăng ký</button>
+</form>
