@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using KoiShowManagementSystem.Services;
 using KoiShowManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using KoiShowManagementSystem.Repositories.Entity;
+using KoiShowManagementSystem.Services.Services;
 
 namespace KoiShowManagementSystem.Controllers
 {

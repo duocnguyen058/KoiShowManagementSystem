@@ -1,4 +1,7 @@
-﻿namespace KoiShowManagementSystem.Services.Services
+﻿using KoiShowManagementSystem.Repositories.Entity;
+using KoiShowManagementSystem.Repositories.Repositories;
+
+namespace KoiShowManagementSystem.Services.Services
 {
     public interface IScoresService
     {

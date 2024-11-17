@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using KoiShowManagementSystem.Repositories.Entity;
 using System.Threading.Tasks;
+using KoiShowManagementSystem.Services.Services;
 
 namespace KoiShowManagementSystem.Controllers
 {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using KoiShowManagementSystem.Repositories.Entity;
+using KoiShowManagementSystem.Repositories;
 
 namespace KoiShowManagementSystem.Services.Services
 {

@@ -1,4 +1,8 @@
-﻿namespace KoiShowManagementSystem.Controllers
+﻿using KoiShowManagementSystem.Services.Services;
+using KoiShowManagementSystem.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace KoiShowManagementSystem.Controllers
 {
     public class JudgeAssignmentsController : Controller
     {

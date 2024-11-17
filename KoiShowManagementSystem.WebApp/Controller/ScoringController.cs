@@ -1,4 +1,9 @@
-﻿namespace KoiShowManagementSystem.Controllers
+﻿using System.Security.Claims;
+using KoiShowManagementSystem.Services.Services;
+using KoiShowManagementSystem.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+
+namespace KoiShowManagementSystem.Controllers
 {
     public class ScoringController : Controller
     {

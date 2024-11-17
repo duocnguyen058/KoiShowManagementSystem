@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KoiShowManagementSystem.Repositories;
+using KoiShowManagementSystem.Repositories.Entity;
+using KoiShowManagementSystem.Repositories.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace KoiShowManagementSystem.Services.Services
 {
